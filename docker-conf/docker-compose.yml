@@ -1,0 +1,24 @@
+version: '3'
+services:
+  mariadb_main:
+    image: mariadb
+    environment:
+     MYSQL_ROOT_PASSWORD: 'root'
+     MYSQL_ROOT_HOST: 'localhost'
+     MYSQL_USER: 'root'
+     MYSQL_HOST: 'localhost'
+     MYSQL_PASSWORD: '1234'
+     MYSQL_DATABASE: 'room_reservation'
+    ports:
+      - '3315:3306'
+  mariadb_test:
+    image: mariadb
+    environment:
+     MYSQL_ROOT_PASSWORD: 'root'
+     MYSQL_ROOT_HOST: 'localhost'
+     MYSQL_USER: 'root'
+     MYSQL_HOST: 'localhost'
+     MYSQL_PASSWORD: '1234'
+     MYSQL_DATABASE: 'room_reservation'
+    ports:
+      - '3316:3306'

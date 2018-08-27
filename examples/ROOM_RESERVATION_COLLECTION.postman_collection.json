@@ -1,0 +1,111 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ROOM_RESERVATION_COLLECTION",
+		"_postman_id": "7e25da8e-046a-87a4-8080-7d73dce73595",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "search",
+			"request": {
+				"url": "http://localhost:8189/api/v1/search/rooms",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"periodFromDate\":\"2035-06-03T11:00\",\n\t\"periodToDate\":\"2035-06-06T11:00\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "register customer",
+			"request": {
+				"url": "http://localhost:8189/api/v1/customers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\":\"Johnny\",\n\t\"lastName\":\"Bravo\",\n\t\"phoneNumber\":\"555050513\",\n\t\"email\":\"johnny@gmail.com\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "reserve room",
+			"request": {
+				"url": "http://localhost:8189/api/v1/customers/21/reservations/rooms/1/reserve",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"periodFromDate\":\"2035-06-03T11:00\",\n\t\"periodToDate\":\"2035-06-06T11:00\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "cancel reservation",
+			"request": {
+				"url": "http://localhost:8189/api/v1/customers/21/reservations/10/cancel",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"periodFromDate\":\"2035-06-03T11:00\",\n\t\"periodToDate\":\"2035-06-06T11:00\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "check room",
+			"request": {
+				"url": "http://localhost:8189/api/v1/customers/21/reservations/10/check",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"periodFromDate\":\"2035-06-03T11:00\",\n\t\"periodToDate\":\"2035-06-06T11:00\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
