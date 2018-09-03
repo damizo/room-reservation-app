@@ -96,7 +96,7 @@ public class CustomerControllerIntegrationTest extends TestIntegrationHelper {
         String jsonRequest = extractJson(roomReservationPeriodDTO);
         String jsonResponse = extractJson(reservationDTO);
 
-        this.mockMvc.perform(post("/api/v1/customers/{customerId}/reservations/rooms/{roomId}/reserve",
+        this.mockMvc.perform(post("/api/v1/customers/{customerId}/reservations/rooms/{roomId}",
                 "1", "1")
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -121,7 +121,7 @@ public class CustomerControllerIntegrationTest extends TestIntegrationHelper {
 
         String jsonResponse = extractJson(reservationDTO);
 
-        this.mockMvc.perform(put("/api/v1/customers/{customerId}/reservations/{reservationId}/cancel",
+        this.mockMvc.perform(delete("/api/v1/customers/{customerId}/reservations/{reservationId}",
                 customerId, reservationId)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -144,7 +144,7 @@ public class CustomerControllerIntegrationTest extends TestIntegrationHelper {
 
         String jsonResponse = extractJson(reservationDTO);
 
-        this.mockMvc.perform(get("/api/v1/customers/{customerId}/reservations/{reservationId}/check",
+        this.mockMvc.perform(get("/api/v1/customers/{customerId}/reservations/{reservationId}",
                 customerId, reservationId)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -166,7 +166,7 @@ public class CustomerControllerIntegrationTest extends TestIntegrationHelper {
         String jsonRequest = extractJson(roomReservationPeriodDTO);
         String jsonResponse = extractJson(expectedErrorDTO);
 
-        this.mockMvc.perform(post("/api/v1/customers/{customerId}/reservations/rooms/{roomId}/reserve",
+        this.mockMvc.perform(post("/api/v1/customers/{customerId}/reservations/rooms/{roomId}",
                 "1", "1")
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -189,7 +189,7 @@ public class CustomerControllerIntegrationTest extends TestIntegrationHelper {
         String jsonRequest = extractJson(roomReservationPeriodDTO);
         String jsonResponse = extractJson(expectedErrorDTO);
 
-        this.mockMvc.perform(post("/api/v1/customers/{customerId}/reservations/rooms/{roomId}/reserve",
+        this.mockMvc.perform(post("/api/v1/customers/{customerId}/reservations/rooms/{roomId}",
                 "1", "1")
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -212,7 +212,7 @@ public class CustomerControllerIntegrationTest extends TestIntegrationHelper {
         String jsonRequest = extractJson(roomReservationPeriodDTO);
         String jsonResponse = extractJson(expectedErrorDTO);
 
-        this.mockMvc.perform(post("/api/v1/customers/{customerId}/reservations/rooms/{roomId}/reserve",
+        this.mockMvc.perform(post("/api/v1/customers/{customerId}/reservations/rooms/{roomId}",
                 "1", "1")
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .contentType(MediaType.APPLICATION_JSON)

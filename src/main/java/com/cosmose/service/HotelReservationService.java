@@ -20,8 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -56,25 +54,25 @@ public class HotelReservationService implements ReservationService {
     public ReservationDTO reserve(Long customerId, Long roomId, ReservationPeriodDTO periodDTO) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new DomainEntityNotFoundException(String.format("Customer with id %d does not exist", customerId)));
-        LOGGER.info("Customer has been found: {}", customer);
+        LOGGER.debug("Customer has been found: {}", customer);
 
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new DomainEntityNotFoundException(String.format("Room with id %d does not exist", roomId)));
-        LOGGER.info("Room has been found: {}", room);
+        LOGGER.debug("Room has been found: {}", room);
 
         validateBeforeReservation(periodDTO, roomId);
 
         Reservation reservation = reservationMapper.toDomain(periodDTO, room, customer);
-        LOGGER.info("Built reservation: {}", reservation);
+        LOGGER.debug("Built reservation: {}", reservation);
 
         Integer accommodationPrice = reservationCalculator.calculate(reservation.getPeriodFromDate(),
                 reservation.getPeriodToDate(),
                 room.getDailyPrice());
-        LOGGER.info("Accommodation price calculated: {}", accommodationPrice);
+        LOGGER.debug("Accommodation price calculated: {}", accommodationPrice);
 
         reservation = fillAdditionalFields(reservation, accommodationPrice, ReservationStatus.CONFIRMED);
         Reservation persistedReservation = reservationRepository.save(reservation);
-        LOGGER.info("Persisted reservation: {}", persistedReservation);
+        LOGGER.debug("Persisted reservation: {}", persistedReservation);
 
         return reservationMapper.fromDomain(persistedReservation);
     }
@@ -83,11 +81,11 @@ public class HotelReservationService implements ReservationService {
     public ReservationDTO cancel(Long customerId, Long reservationId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new DomainEntityNotFoundException(String.format("Customer with id %d does not exist", customerId)));
-        LOGGER.info("Customer has been found: {}", customer);
+        LOGGER.debug("Customer has been found: {}", customer);
 
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new DomainEntityNotFoundException(String.format("Reservation with id %d does not exist", reservationId)));
-        LOGGER.info("Reservation has been found: {}", reservation);
+        LOGGER.debug("Reservation has been found: {}", reservation);
 
         if (!customer.getReservations().contains(reservation)) {
             throw new LogicValidationException(String.format("Customer with id %d has not assigned to reservation with id %d", customerId, reservationId));
@@ -96,22 +94,21 @@ public class HotelReservationService implements ReservationService {
         validateReservationBeforeCancellation(reservation.getId(), reservation.getStatus());
 
         reservation.setStatus(ReservationStatus.CANCELED);
-        LOGGER.info("Reservation status has changed: {}", reservation);
+        LOGGER.debug("Reservation status has changed: {}", reservation);
 
         return reservationMapper.fromDomain(reservation);
     }
 
     @Override
     public ReservationDTO check(Long customerId, Long reservationId) {
-        //TODO: findByIdAndCustomerId
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new DomainEntityNotFoundException("Customer with id %d does not exist", customerId));
-        LOGGER.info("Customer has been found: {}", customer);
+                .orElseThrow(() -> new DomainEntityNotFoundException(String.format("Customer with id %d does not exist", customerId)));
+        LOGGER.debug("Customer has been found: {}", customer);
 
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new DomainEntityNotFoundException(String.format("Reservation with id %d does not exist",
                         reservationId)));
-        LOGGER.info("Reservation has been found: {}", reservation);
+        LOGGER.debug("Reservation has been found: {}", reservation);
 
         if (!customer.getReservations().contains(reservation)) {
             throw new LogicValidationException(String.format("Customer with id %d has not assigned to reservation with id %d",
@@ -142,7 +139,7 @@ public class HotelReservationService implements ReservationService {
 
         LocalDateTime fromDate = LocalDateTime.parse(periodDTO.getPeriodFromDate());
         LocalDateTime toDate = LocalDateTime.parse(periodDTO.getPeriodToDate());
-        LOGGER.info("Before reservation, period: {} and {}", fromDate, toDate);
+        LOGGER.debug("Before reservation, period: {} and {}", fromDate, toDate);
 
         if (fromDate.isAfter(toDate)) {
             throw new LogicValidationException("fromDate must be older than toDate while reservation");
@@ -159,7 +156,6 @@ public class HotelReservationService implements ReservationService {
         }
 
         dateValidationService.checkDatesConflicts(periodDTO.getPeriodFromDate(), periodDTO.getPeriodToDate(), roomId);
-
         LOGGER.info("Dates went through validation");
     }
 

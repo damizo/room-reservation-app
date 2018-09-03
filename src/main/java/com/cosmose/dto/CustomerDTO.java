@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * Created by damian on 24.08.18.
  */
-
+@Data
 @NoArgsConstructor
 public class CustomerDTO extends UserDTO {
 

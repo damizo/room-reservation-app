@@ -40,3 +40,4 @@ Remarks:
 	 **1.** docker rmi -f mariadb*
 	 **2.** docker rm $(docker ps -a | grep mariadb)*
 	 **3.** run containers just like in step **2**
+- Swagger documentation:  **localhost:8189/swagger-ui.html**

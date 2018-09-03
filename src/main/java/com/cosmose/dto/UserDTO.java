@@ -76,31 +76,5 @@ public class UserDTO extends BaseDTO {
         this.type = type;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(firstName, userDTO.firstName) &&
-                Objects.equals(lastName, userDTO.lastName) &&
-                Objects.equals(phoneNumber, userDTO.phoneNumber) &&
-                Objects.equals(email, userDTO.email) &&
-                type == userDTO.type;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, phoneNumber, email, type);
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", type=" + type +
-                '}';
-    }
 }

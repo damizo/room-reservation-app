@@ -1,5 +1,6 @@
 package com.cosmose.exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,18 +9,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@AllArgsConstructor
 public class DomainEntityNotFoundException extends RuntimeException {
 
-    private String message;
-    private Object[] param;
-
-    public DomainEntityNotFoundException(String message, Object... param) {
-        this.message = message;
-        this.param = param;
-    }
-
-    public DomainEntityNotFoundException(String message) {
-        this.message = message;
-    }
+    private final String message;
 
 }

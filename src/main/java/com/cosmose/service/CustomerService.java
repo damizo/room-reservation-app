@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class CustomerService implements UserService<CustomerDTO> {
+public class CustomerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerService.class);
 
@@ -25,13 +25,13 @@ public class CustomerService implements UserService<CustomerDTO> {
     @Autowired
     private CustomerMapper customerMapper;
 
-    @Override
+
     public CustomerDTO create(CustomerDTO customerDTO) {
-        LOGGER.info("Before creating customer: {}", customerDTO);
+        LOGGER.debug("Before creating customer: {}", customerDTO);
         Customer customer = customerMapper.toDomain(customerDTO);
 
         Customer persistedCustomer = customerRepository.save(customer);
-        LOGGER.info("Customer created: {}", customerDTO);
+        LOGGER.debug("Customer created: {}", customerDTO);
 
         return customerMapper.fromDomain(persistedCustomer);
     }

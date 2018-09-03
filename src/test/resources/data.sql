@@ -1,5 +1,3 @@
-
-
 INSERT INTO room_reservation.addresses (id, street, building_number, flat_number, postal_code, city, type)
 VALUES ('1', 'Marszalkowska Street', '153', null, '03-553', 'Warsaw', 'HOTEL');
 
