@@ -1,6 +1,5 @@
 
   
-**Recruitment task for Cosmose.**     
  **Spring Boot application backed by MariaDB in Docker containers**     
  Setting up environment:    
     
